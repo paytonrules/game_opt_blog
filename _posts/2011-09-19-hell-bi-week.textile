@@ -7,6 +7,3 @@ h1. {{ page.title }}
 
 p(meta). 19 September 2011 - St. Louis
 
-Test Test
-
-
