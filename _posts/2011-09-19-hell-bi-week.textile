@@ -7,3 +7,17 @@ h1. {{ page.title }}
 
 p(meta). 19 September 2011 - St. Louis
 
+St. Louis?  But I'm a local student!  Yeah I'm writing the first entry of my GAM 491 class from St. Louis because I'm at the strangeloop conference, and won't be at class tonight.  I'm in the middle of a two week stretch I'm calling "Hell Week" because my schedule looks something like this: 
+
+Monday (7/12/01) - Major deadline at day job.  First GAME class.  Begin working on presentation due Friday for day job.
+Thursday - Work late on presentation for day job.
+Friday - Give presentation at day job.  Deploy major release of day job.  Take apart beds.
+Saturday - Paint kids rooms.  Fix deployment that failed Friday.
+Sunday - Drive to St. Louis.
+Monday - Homework due, attend conference (hey that's today).
+Tuesday - Finish convference, drive home.
+Wednesday - Yet another presentation, this time for Software Craftsmanship McHenry County.
+Thursday - Watch previous class.
+Friday - Part two of the presentation from the previous Friday.
+
+Most importantly I'm forgettting stuff.  Such as getting my envirionment setup for a DePaul class for the first time this academic year.  Of course the homework is going to be turned in, this blog is written, I have slayed the Perforce demon once again, and all will be semi-well and I may have a drink or to along the way.  Hope the class goes well tonight, I'll be watching you next Thursday.
