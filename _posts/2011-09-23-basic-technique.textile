@@ -1,0 +1,23 @@
+---
+layout: post
+title: Some Basic C/C++ optimizations
+---
+
+h1. {{ page.title }}
+
+p(meta). 23 September 2011 - Lake Zurich
+
+Since I'm already playing catchup, which always seems to be the way, I thought I'd take a moment to do a little review of Week 1's class.  I still haven't watched Week 2, which appears to be a weekend task, but I think a little review of the tips from during Week 1 is in order anyway. 
+
+Of course many of the optimizations are straightforward.  It is naturally harder to optimize when the system isn't properly designed, an argument programmers have been making for years when they say "premature optimization":http://c2.com/cgi/wiki?PrematureOptimization is the "root of all evil."  If we're gonna get optimization ninja hats, we're going to need to learn to tweak the compiler settings.  That's not to denigrate the suggestions, just to say they don't make very blog-worthy material.
+
+I really like the DeMorgan slide.  The example given is like this:
+
+@if (x && y) // Early out if x is false@
+@if (x || y)  // No early out - must evaluate both@
+@if !(x || y) // Still no early out but if you use DeMorgan's law...@
+@if (!x && !y) // Early out on x!@
+
+The great thing about this trick is it's counter-intuitive.  If I saw the fourth example in normal code I'd probably refactor it back to the original or statement, because that's clearer.  Then why do I like this slide?  Because it's exactly the kind of thing I'm looking for in this class.  I wouldn't think of it normally, but now I've got it in my personal toolbox.
+
+
