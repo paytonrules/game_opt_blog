@@ -1,0 +1,62 @@
+---
+layout: post
+title: C++ Types
+---
+
+Just a quick little note about C++ typing that's driving me bonkers.
+
+The first problem for assignment 2 was to write a program to display the data alignment of a given structure.  This is conceptual simple.  Let's show the code for a given class:
+
+<pre>
+void printTest_J()
+{
+  int dataSize;
+  unsigned char *p; 
+
+  printf("Test_J");
+  dataSize = sizeof(Test_J); 
+  p = new unsigned char[dataSize]; 
+  memset(p, 0xAA, dataSize); 
+  Test_J *dataUnderTest = new(p) Test_J();
+
+  printDataBlock(dataSize, p); 
+
+  delete p;
+}
+</pre>
+
+What this does is create a block of memory (p) and initializes it with known data (0xAA).  Then it uses placement new to allocate Test_J at the exact same spot.  When you print out this block of memory you'll see 0xAA anyplace where the memory wasn't used in allocating the structure.  This is padding, caused by data alignment.  This works plenty well, but what about for another class?  Here's the code I want to write:
+
+<pre>
+void printMemoryInfoOf(klass)
+{
+  int dataSize;
+  unsigned char *p;
+
+  printf(AsString(klass));
+  dataSize = sizeof(klass);
+  
+  p = new unsigned char[dataSize];
+  memset(p, 0xAA, dataSize);
+
+  void *dataWereLookingAt = new (p) klass();
+
+  printDataBlock(dataSize, p);
+
+  delete p;
+</pre>
+
+Or actually I wanna override new and do this:
+
+<pre>
+void *operator new(size)
+{
+  int dataSize;
+  unsigned char *p;
+  p = malloc(size);
+  memset(p, 0xAA, dataSize);
+  new(p) // Oh no what's the constructor
+</pre>
+
+Yeah that's where I got.  In other languages (Objective-C, Ruby, etc) I could solve this problem because the class itself is an object, but that isn't an object in C++.  I think I can get to where I want to with either overridden news on individual classes, or a large global buffer that I manage myself, but either seems like more work than the assignment intends.  Fortunately Ed does a good job with the code reviews, and I'll have next week to see the trick that's driving me nuts. 
+
