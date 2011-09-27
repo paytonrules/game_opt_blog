@@ -1,0 +1,35 @@
+---
+layout: post
+title: OMG I suck...
+---
+
+h1. {{ page.title }}
+
+p(meta). 26 September 2011 - Chicago, Clyborn, Irving Park...Palatine
+
+I'm writing this blog from the train on my way home after today's embarassing pointer test.  There was other stuff in the class too of course, we'll be doing a memory manager which I did in Game Engine only this will be more elaborate, and I learned a few things about my previous assignment which I'll be cleaning up tomorrow, but the important thing was the embarassing pointer test.  Actually it deserves capitalization: The Embarassing Pointer Test!!!!!!  Six exclamation points, not five.
+
+Why so embarassing?  Gosh maybe because I did C++ programming, and got paid for it, for close to 8 years?  Yet I completely forgot my pointer arithmetic, mixed up the difference between Big Endian and Little Endian, and wasn't 100% sure that what %x would display in a printf statement.  Yuck.  Hopefully I won't be begging Keenan for a job in the near future, although if I do I'll remind him I got A's in his other classes.  Remember networking?  That class was hard.
+
+Now that I'm sitting here on the train, wondering why I did C/C++ for all those years (different rant), I've decided to refresh my memory.  The reason I failed the class today wasn't because I've never done pointer arithmetic, in fact I have the memory manager I wrote for Game Engine right here and it has pointer arithmetic in it.  The reason is a combination of rust and brain fart.  I can't really explain the brain fart, but I can take care of the rust with a little practice.  So I fired up Eclipse and wrote a simple C Koan, to be published on GitHub once I have network access again. (Ed. Note: Now I that I do - "here it is":https://github.com/paytonrules/PointerKoan)
+
+A "Koan" is just a practice session, with the Koan name taken from Buddhism because the first author of these thought it was cool.  The way these work is closer to flash cards.  The user is presented with code that looks like this:
+
+<pre>
+  unsigned char *p = new unsigned char[BUFFER_SIZE];
+  for(int i = 0; i < BUFFER_SIZE; i++)
+  {
+    p[i] = i;
+  }
+
+  assert(p[0] == -1);
+  assert(*p == -1);
+</pre>
+
+And must change the answers to the correct ones to continue.  When he/she is done they wipe their changes, to start again next time.    Now most Koans are done with a Unit Testing framework, but since I'm on the train I don't have one handy, and that's probably for the best.  Had I been privy to a framework I likely would have spent the entire trip setting it up, and never actually finished the practice.  I'm horrible about that.  Many of the other systems are much larger, teaching the ins and outs of the language.  I'm not interested in that, I just want to make sure I never screw up pointers like that again.  If you're intereseted the code can be found here:
+
+Other Koans can be found at:
+
+"clojure-koans":https://github.com/functional-koans/clojure-koans
+"smalltalk-koans":http://skim.la/2011/06/21/gnu-smalltalk-koans/
+"ruby-koans":http://rubykoans.com/
