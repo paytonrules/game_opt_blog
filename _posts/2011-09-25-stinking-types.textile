@@ -3,6 +3,10 @@ layout: post
 title: C++ Types
 ---
 
+h1. {{ page.title }}
+
+p(meta). 25 September 2011 - Lake Zurich
+
 Just a quick little note about C++ typing that's driving me bonkers.
 
 The first problem for assignment 2 was to write a program to display the data alignment of a given structure.  This is conceptual simple.  Let's show the code for a given class:
