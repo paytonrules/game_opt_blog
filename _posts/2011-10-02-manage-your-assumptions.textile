@@ -1,0 +1,53 @@
+---
+layout: post
+title: Manage your Assumptions
+---
+
+h1. {{ page.title }}
+
+p(meta). 02 October 2011 - Lake Zurich, My Basement
+
+Sigh.  Just got done doing the cleanup portion of the previous assignment.  I thought this would be easy, because based on the feedback from last week I had the first two problems correct aside from a minor oversite, and the fixing the third one just meant changing the way I allocated the Hot Nodes.  
+
+All started out well.  I got problem 1 actually printing out the number of padded bytes, as opposed to displaying the memory buffer, and problem 3 got faster when I corrected the way I did my allocation.  Then I realized I hadn't done the verification in problem 3.  So I wrote something like this:
+
+<code>
+bool hotcold::verify()
+{
+  bool matching = true;
+  for (int i = 0; i < NUM_NODES && matching; i++)
+  {
+    OriginalNode originalNode;
+    Bloated::findKey(head[i].key, originalNode);
+    matching = head[i].matches(originalNode);
+  }
+  return matching;
+}
+</code>
+
+This failed every time, constantly saying that the node trees didn't match.  I sprinkled asserts everywhere - and I knew that the lists matched.  I spent hours looking for where memory was corrupted, have you spotted the problem yet?
+
+The key is not guaranteed to be unique.  This meant the code had to be:
+
+<code>
+bool hotcold::verify()
+{
+  bool matching = true;
+  HotNode *node = head;
+  OriginalNode *bloatedNode = Bloated::getListHead();
+
+  while (0 != node && 0 != bloatedNode && matching) 
+  {
+    matching = node->matches(*bloatedNode);
+    node = node->getNext();
+    bloatedNode = bloatedNode->getNext();
+  }
+  return matching;
+}
+</code>
+
+Suddenly my test passed.  My code worked all along.  Remember you're assumptions, if you're assuming a unique key, make sure they key is ACTUALLY unique.  Thanks.
+
+Won't see you tomorrow, as I've got a lot of other reasons to be home late this week and will use the time to work on my memory system.
+
+
