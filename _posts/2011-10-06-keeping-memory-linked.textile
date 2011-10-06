@@ -1,0 +1,31 @@
+---
+layout: post
+title: Keeping Memory Linked
+---
+
+h1. {{ page.title }}
+
+p(meta). 06 October 2011 - Metra Line
+
+One of the drawbacks of using perforce is that it isn't a DVCS, so I can't commit on the train, and as such likely won't have a reference the code in it's current state.  If only Git handled binary data well....
+
+Anyway it's time to write a blog as I puzzle over pointers in my memory system.  Currently I'm struggling over keeping the headers wired up when I add and free blocks.  The problem goes something like this in psuedocode:
+
+<pre>
+function free(data)
+{
+  replaceFreeHeaderWithUsedHeader();
+  wireUsedHeaderBackIntoSystem(); // OH NO!!!!!!!
+}
+</pre>
+
+The solutions I've come up with so far all make me grumpy:
+
+* Go to the end of the linked list for both free and used blocks and add the new header to the end.  This seems slow, and will likely end up with data all over my heap which thrashes the cache (based on the previous assignment).
+* Traverse the list of headers until I find the pointer just after the new location.  This becomes the next node, and the previous node is the one before the current block.  This reduces the random pointers all over the heap, and also means that we won't always go to the end of the list.  Still a lot of looping, seems awful slow for an optimization class.
+* Store a pointer in the heap header to the end of the linked list.  No more looping, but the header links won't reflect their order in the hash.  Thrashing.
+* Add data to the headers that include information about the blocks above and below them. 
+
+The last option is the one that "feels" the best - the headers know what they need to get back into the list - but it's also the most complicated and I'm not 100% sure what that data would be.  In addition I'd have to update data in all the blocks (potentially) on any allocation or free and that feels awful slow.  Finally my code relies on the fact that the FreeHdr and UsedHdr are the same size.  It probably shouldn't, but I'm not in any mood to work on that.
+
+I'm currently leaning towards the third option for that reason, at least for the time being as its the easiest code.
