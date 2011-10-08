@@ -1,0 +1,31 @@
+---
+layout: post
+title: Abstracting the Bugs Away
+---
+
+h1. {{ page.title }}
+
+p(meta). 08 October 2011 - Lake Zurich, IL
+
+As I work through the memory system I find myself continually repeating the same patterns that look like this:
+
+<pre>
+if(0 != availableNode->prevNode)
+{
+  availableNode->prevNode->nextNode = newNode;
+}
+</pre>
+
+The duplication is sprinkled through my code it's ugly.  More important than any concept of "elegance" are the problems associated with this kind of duplication: 
+
+* It's error prone
+* It needs to be changed in multiple places depending on how I mess it up
+* The repeated conditional checks aren't winning me any efficiency awards.
+
+Now I'm more concerned about the first two, because if I come up with the right abstraction I'll be able to more easily handle the efficiency issues.  Now abstracing a linked list is a known problem, but using STL or Boost here is killing a mosquito with a nuclear bomb and anyway it will completely destroy our efficient memory system.  Instead I'm going to write my own class that handles the minmal operations I need, which off the top of my head are:
+
+* AddNodeAfter
+* AddNodeBefore
+* RemoveNode
+
+Actually I think that's it.  I'm not actually sure I need the after - maybe that's really AddNodeAtEnd.  We'll see.  The point being that my node list should change in structure minimally, if at all, while hiding away the stuff I keep screwing up.
