@@ -1,0 +1,22 @@
+---
+layout: post
+title: Death By Conditional Checks
+---
+
+h1. {{ page.title }}
+
+p(meta). 10 October 2011 - Metra Train
+
+At the moment my memory system has a grump in it.  The grump is the linked list that insists on sprinkling conditional logic all over the place like so:
+
+<pre>
+if(0 != availableFreeBlock->freeNext)
+{
+    availableFreeBlock->freeNext->freePrev = availableFreeBlock->freePrev;
+}
+
+</pre>
+
+Of course I already mentioned this in a previous blog post, but it's worth showing again.  I have attempted to fix the duplication by employing a LinkedList abstraction but failed miserably.  I may try again provided I have time before the drop dead cleanup date of next week.  That abstraction wouldn't get rid of all the conditional checks however, for that I want to use the NULL Object pattern. The NULL Object pattern is where you put in an object for NULL and have it respond the way you need to given the situation.   Take the code above - if the availableFreeBlock->freeNext was a free NULLObject then we could could simply NO-OP when setting it's free previous, since its irrelevant. 
+
+The problem with that approach is there are several special cases, likely resulting in several NULL objects, and replacing simple pointers with accessors.  We'd have to add "end?" commands to finish looping and other potential nonsense.  Right now I'm leaning towards figuring out the abstraction I want for the linked list and being done with it.
