@@ -12,4 +12,46 @@ For the memory system I've been using a hybrid approach, developed largely on ac
 Then I decided it was time to start running Keenans tests.  I knew that there would be problems around coalescing and edge conditions, but I wanted to flesh those out before I fixed them up.  Sure enough test three gave me a problem.  Test 3 looks like this:
 
 <pre>
+	io::create("Eric Smith", "Smith_Test3.txt");
+
+	fprintf(io::getHandle(),"Test3: \n\n");
+
+
+	fprintf(io::getHandle()," 1) allocate the biggest block          \n");
+	fprintf(io::getHandle()," 2) free it                             \n\n");
+
+	fprintf(io::getHandle(),"     memSystem mem;                     \n");
+	fprintf(io::getHandle(),"     mem.InitializeSystem();            \n");
+  fprintf(io::getHandle(),"     void *p = mem.Malloc( 0xc7b0 );    \n");
+	fprintf(io::getHandle(),"     mem.dump();                        \n");
+	fprintf(io::getHandle(),"     mem.Free( p );                     \n");
+	fprintf(io::getHandle(),"     mem.dump();                        \n");
+
+	memSystem mem;
+	mem.InitializeSystem();
+  void *p = mem.Malloc( 0xc7b0 );
+	mem.dump();
+	mem.Free( p );
+	mem.dump();
+
+	io::destroy();
 </pre>  
+
+This would crash when it hit Free.  A little debugging later and I see why.  Since there are no Free blocks and no free head, the code doesn't know how to handle that, and crashes.  Rather than write my little asserts I just started changing code, trying to get the text that shows up in these tests to match.  After several NULL checks I still was crashing, and I realized I was now crashing in a different spot.  Suddenly I was neck deep in spaghetti, and even if I got this test passing there was no guarantee that I'd still have the first two tests passing.  I'd have to go look at those, and if I continued in this way with each of the tests I'd have to keep looking backwards over and over again, fighting off the regressions I'm likely to keep writing.  Now let's mimic the test above with a little assertion test:
+
+<pre>
+void testWhenYouHaveNoFreeBlocksAndFreeABlock()
+{
+	memSystem mem;
+	mem.InitializeSystem();
+
+  void *p = mem.Malloc( 0xc7b0 );
+	mem.Free( p );
+
+	assert(mem.getHeap()->freeHead == (memVoid *)((memU8*) mem.getHeap() + sizeof(heapHdr)));
+	assert(mem.getHeap()->stats.currFreeMem == 0xc7b0);
+}
+</pre>
+
+Now I probably didn't explain, and likely don't have to since this is a class blog, but the first test required checking the output and making sure that the values matched.  The test above does not - it will fail the _instant_ I make a mistake and break that functionality since I call it in main.  Now I've cheated, a little, since this isn't a true unit test.  It's too busy, and I probably shouldn't be using the stats class but instead really making sure values are free, but it'll work for what we're doing.  More importantly if I keep this passing I know test 3 will be right.
+ 
