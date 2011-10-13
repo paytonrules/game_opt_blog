@@ -1,0 +1,15 @@
+---
+layout: post
+title: Why Printf Isn't Good Enough
+---
+
+h1. {{ page.title }}
+
+As I'm sure I've written before, if not in this class than in others, I'm a TDD zealot at my day job, but I have to be cautious when I use TDD with class work.  Often-times I start learning how to write tests for the new technique we're learning instead of the actual class material.  While this might be useful, it's not what I came to school for and isn't usually what the instructor is good at teaching me.  For instance in Game Architecture I learned all about using Jemmy for testing event handling in a Java App, and didn't get to use sprite sheets or tiled backgrounds cause I was futzing with it.  Generally I treat school code as throw away code, and don't write tests, giving me more freedom to experiment.  This generally results in code that I wouldn't call production-worthy, but that's okay.  The code doesn't live beyond class anyway.
+
+For the memory system I've been using a hybrid approach, developed largely on accident.  If you look in my main in addition to the Keenan tests you'll see a lot of smaller more fine grain tests written as I iteratively developed the system.  Why not use a real testing framework?  I'm currently using Eclipse, which I haven't done before, and then moving things to a Windows VM before final checkin.  This is already one yak to shave.  Adding the setup of a UT framework and learning it's syntax, as I don't use any C++ framework in my day job, would just force me to learn more tools likely making me later on the memory system.  So I got most of the memory system working, except for coalescing, using these little asserts. 
+
+Then I decided it was time to start running Keenans tests.  I knew that there would be problems around coalescing and edge conditions, but I wanted to flesh those out before I fixed them up.  Sure enough test three gave me a problem.  Test 3 looks like this:
+
+<pre>
+</pre>  
