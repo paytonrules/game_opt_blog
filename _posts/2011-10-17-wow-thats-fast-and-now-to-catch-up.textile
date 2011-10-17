@@ -1,0 +1,23 @@
+---
+layout: post
+title: Wow that's fast ...now to catch up
+---
+
+h1. {{ page.title }}
+
+p(meta). 17 October 2011 - Chicago, IL
+
+First the good news:  Provided Professor Keenan doesn't mind that I compiled the memory system in release, and he doesn't mind that my output format doesn't match his tab for tab, my memory system is complete and is fast.  Here's the data:  
+
+<pre>
+------------Memory System------------
+
+      Mem Lib: stress test: 734.728575 ms 
+Custom Memory: stress test: 40.403180 ms 
+              times faster: 18.184920 
+</pre>
+
+I am actually disappointed in this data, because I misread the numbers last night and told people I was 40X faster.  Whoops, but 18 times is freaking awesome.  Course now I'm exhausted.
+
+The problem is that I'm behind.  I've spent all week on the memory system and didn't even think about the Proxy assignment, which puts me behind the 8 ball.  With SIMD due next, I've got to catch up this week.  I don't want the final project to be held up by these two simpler assignements.  Maybe shorter blogs.....
+
