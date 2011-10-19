@@ -1,0 +1,44 @@
+---
+layout: post
+title: Let's Be Explict
+---
+
+h1. {{ page.title }}
+
+p(meta). 19 October 2011 - Lake Zurich, IL
+
+I'm currently working on the weirdest homework assignment of my life.  After all I've never had to _prevent_ a program from compiling.  Of course the reason, making an interface that forces the client to use it correctly, is a good one but that doesn't make the assignment any less funny.  
+
+One of the ways we do this is using the 'explicit' keyword.  In my past life as a C++ developer I don't recall ever using this word.  So let's look at what Stoustroup's book says about it:
+
+<blockquote>
+  By default, a single arugment constructor also defines an implicit conversion.  For some types, that is ideal.  For example, a _complex_ can be initialized with an _int_:<br><br>
+
+    complex z = 2; // initialize z with complex(2)<br><br>
+
+  In other cases, the implicit conversion is undesirable and error-prone.  For example, if we could initialize a _string_ with an _int_ size someone would write:<br><br>
+
+    string s = 'a'; // make s a string with int('a') elements<br><br>
+
+  It is quite unlikely that this was what the person defining s meant.
+</blockquote>
+
+With the homework assignments we're working with a Vect type.  So in an effort to make it a more stringent type I made its copy constructor explicit.  This created some intereseting failures such as:
+
+<pre>
+  C = A + B; // ../PA4_Implicit/stressTest.cpp:44: error: no matching function for call to 'Vect::Vect(Vect&)'
+             // ../PA4_Implicit/stressTest.cpp:44: error:   initializing argument 1 of 'Vect Vect::operator+(Vect) const'
+</pre>
+
+and
+
+{% highlight C %}
+{
+	Vect operator + (const Vect tmp ) const
+	{
+		return ( Vect(this->x + tmp.x, this->y + tmp.y, this->z + tmp.z ) ); // ../PA4_Implicit/PA4_A.h: In member function 'Vect Vect::operator+(Vect) const':
+                                                                         // ../PA4_Implicit/PA4_A.h:89: error: no matching function for call to 'Vect::Vect(Vect)'
+	}
+{% endhighlight %}
+
+This wasn't really what I expected but the errors contain hints of my mistake.  The code above requires implicit copy constructor conversions, and to make it useable requires an amount of casting and explicit calls as to be unusable.  Fortunately with our without explicit there isn't an implicit conversion of a non-Vect type to a Vect type that could be done with an assignment, so I think I'm safe leaving this as is. 
