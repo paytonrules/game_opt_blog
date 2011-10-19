@@ -25,19 +25,22 @@ One of the ways we do this is using the 'explicit' keyword.  In my past life as 
 
 With the homework assignments we're working with a Vect type.  So in an effort to make it a more stringent type I made its copy constructor explicit.  This created some intereseting failures such as:
 
-<pre>
-  C = A + B; // ../PA4_Implicit/stressTest.cpp:44: error: no matching function for call to 'Vect::Vect(Vect&)'
-             // ../PA4_Implicit/stressTest.cpp:44: error:   initializing argument 1 of 'Vect Vect::operator+(Vect) const'
-</pre>
+
+{% highlight c++ %}
+C = A + B; 
+// ../PA4_Implicit/stressTest.cpp:44: error: no matching function for call to 'Vect::Vect(Vect&)'
+// ../PA4_Implicit/stressTest.cpp:44: error:   initializing argument 1 of 'Vect Vect::operator+(Vect) const'
+{% endhighlight %}
 
 and
 
-{% highlight c linenos %}
-	Vect operator + (const Vect tmp ) const
-	{
-		return ( Vect(this->x + tmp.x, this->y + tmp.y, this->z + tmp.z ) ); // ../PA4_Implicit/PA4_A.h: In member function 'Vect Vect::operator+(Vect) const':
-                                                                         // ../PA4_Implicit/PA4_A.h:89: error: no matching function for call to 'Vect::Vect(Vect)'
-	}
+{% highlight c++ %}
+Vect operator + (const Vect tmp ) const
+{
+  return ( Vect(this->x + tmp.x, this->y + tmp.y, this->z + tmp.z ) ); 
+  // ../PA4_Implicit/PA4_A.h: In member function 'Vect Vect::operator+(Vect) const':
+  // ../PA4_Implicit/PA4_A.h:89: error: no matching function for call to 'Vect::Vect(Vect)'
+}
 {% endhighlight %}
 
 This wasn't really what I expected but the errors contain hints of my mistake.  The code above requires implicit copy constructor conversions, and to make it useable requires an amount of casting and explicit calls as to be unusable.  Fortunately with our without explicit there isn't an implicit conversion of a non-Vect type to a Vect type that could be done with an assignment, so I think I'm safe leaving this as is. 
