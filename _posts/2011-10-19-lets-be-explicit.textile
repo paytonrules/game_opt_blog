@@ -32,13 +32,7 @@ With the homework assignments we're working with a Vect type.  So in an effort t
 
 and
 
-{% highlight C %}
-def foo
-  puts 'foo'
-end
-{% endhighlight %}
-
-{% highlight C linenos %}
+{% highlight c linenos %}
 	Vect operator + (const Vect tmp ) const
 	{
 		return ( Vect(this->x + tmp.x, this->y + tmp.y, this->z + tmp.z ) ); // ../PA4_Implicit/PA4_A.h: In member function 'Vect Vect::operator+(Vect) const':
