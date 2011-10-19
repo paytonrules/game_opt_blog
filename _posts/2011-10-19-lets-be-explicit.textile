@@ -32,6 +32,12 @@ With the homework assignments we're working with a Vect type.  So in an effort t
 
 and
 
+{% highlight ruby %}
+def foo
+  puts 'foo'
+end
+{% endhighlight %}
+
 {% highlight C %}
 {
 	Vect operator + (const Vect tmp ) const
