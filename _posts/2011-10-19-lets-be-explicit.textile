@@ -32,7 +32,7 @@ With the homework assignments we're working with a Vect type.  So in an effort t
 
 and
 
-{% highlight ruby %}
+{% highlight C %}
 def foo
   puts 'foo'
 end
