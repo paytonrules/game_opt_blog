@@ -38,7 +38,7 @@ def foo
 end
 {% endhighlight %}
 
-{% highlight C %}
+{% highlight C++ %}
 {
 	Vect operator + (const Vect tmp ) const
 	{
