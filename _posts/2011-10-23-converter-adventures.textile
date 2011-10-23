@@ -1,0 +1,13 @@
+---
+layout: post
+title: Conversion Adventures
+---
+
+h1. {{ page.title }}
+
+p(meta). 23 October 2011 - Lake Zurich, IL
+
+I had a whole blog post written about how Keenan had us tricked, and how we needed to overload the operator= for the Proxy example but that wasn't in the lecture.  It's in the book, and I thought this was a clever way to get us to do the reading.
+
+Then I realized I had a bug in my implementation and the operator= was not necessary.  So never mind.
+
