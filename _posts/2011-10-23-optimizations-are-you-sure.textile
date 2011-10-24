@@ -1,0 +1,156 @@
+---
+layout: post
+title: Optimizations, Are you sure?
+---
+
+h1. {{ page.title }}
+
+p(meta). 23 October 2011 - Lake Zurich, IL
+
+I figured I'd use this to make some notes on the compiler optimizations I used and what they did for my memory system.  Here's the numbers we are starting with for comparison:
+
+<pre>
+Program Assignment: 3 
+Name: Eric Smith
+------------Memory System------------
+
+      Mem Lib: stress test: 694.449425 ms 
+Custom Memory: stress test: 40.860780 ms 
+              times faster: 16.995501 
+
+</pre>
+
+Let's start with the optimizations tab:
+
+h2. Optimization
+
+The first option is just "optimization" and defaults to (in release mode) maximize speed.  Let's see what happens when we change that to 'Full Optimization'.
+
+<pre>
+Name: Eric Smith
+------------Memory System------------
+
+      Mem Lib: stress test: 656.301022 ms 
+Custom Memory: stress test: 46.555080 ms 
+              times faster: 14.097302 
+</pre>
+
+Hmm, faster in the standard memory library, but slower in the custom one.  Of course the difference is slight, not worth changing the default setting.
+
+What if we try minimize size, instead of maximize speed:
+
+<pre>
+Program Assignment: 3 
+Name: Eric Smith
+------------Memory System------------
+
+      Mem Lib: stress test: 574.889004 ms 
+Custom Memory: stress test: 46.928588 ms 
+              times faster: 12.250294 
+</pre>
+
+Wow way faster in the standard memory library.  My memory system stays about the same.  Again we'll leave that as is.  Next setting.
+
+h2. Inline Function Expansion
+
+Of course I want available functions to be inlined.  What results will I get now?
+
+<pre>
+Program Assignment: 3 
+Name: Eric Smith
+------------Memory System------------
+
+      Mem Lib: stress test: 687.061310 ms 
+Custom Memory: stress test: 102.138959 ms 
+              times faster: 6.726731 
+</pre>
+
+Okay yeah, don't want that.
+
+h2.  Enable Intrinsics
+
+These are disabled by default.  What happens if I turn them on:
+
+<pre>
+Program Assignment: 3 
+Name: Eric Smith
+------------Memory System------------
+
+      Mem Lib: stress test: 776.252270 ms 
+Custom Memory: stress test: 43.625936 ms 
+              times faster: 17.793367 
+</pre>
+
+Well now that's just mean - my code stays pretty close to the same and the default memory system slows down.
+
+h2. Favor Size or Speed
+
+Instead of "favor nothing" lets favor speed.
+
+<pre>
+Program Assignment: 3 
+Name: Eric Smith
+------------Memory System------------
+
+      Mem Lib: stress test: 660.696268 ms 
+Custom Memory: stress test: 40.792614 ms 
+              times faster: 16.196468 
+</pre>
+
+Practically no change.  I grow impatient.....What if I favor small code?
+
+<pre>
+Program Assignment: 3 
+Name: Eric Smith
+------------Memory System------------
+
+      Mem Lib: stress test: 806.220591 ms 
+Custom Memory: stress test: 39.756168 ms 
+              times faster: 20.279132 
+</pre>
+
+So the same for the custom memory system but way worse for the standard one.  Harumph!
+
+h2.  Omit Frame Pointers
+
+<pre>
+Program Assignment: 3 
+Name: Eric Smith
+------------Memory System------------
+
+      Mem Lib: stress test: 890.805125 ms 
+Custom Memory: stress test: 93.149550 ms 
+              times faster: 9.563172 
+</pre>
+
+We shall never discuss this again.
+
+h2. Enable Fiber-Safe Optimizations
+
+<pre>
+Program Assignment: 3 
+Name: Eric Smith
+------------Memory System------------
+
+      Mem Lib: stress test: 590.032816 ms 
+Custom Memory: stress test: 40.368818 ms 
+              times faster: 14.616054 
+</pre>
+
+Well it brought down the standard memory system.
+
+Now it's time for the "Whole Program Optimization" field, which is more complicated than the others in that it requires two fields to be set.  I've actually had it on the whole time, so let's see what it is without them:
+
+<pre>
+Program Assignment: 3 
+Name: Eric Smith
+------------Memory System------------
+
+      Mem Lib: stress test: 892.391920 ms 
+Custom Memory: stress test: 246.061161 ms 
+              times faster: 3.626708 
+</pre>
+
+And then I go back to the compiler settings and realize - the values above ARE the default values.  I must have turned on whole program optimization when I turned it in the first time.  So before is at the bottom - and the after is up top.  I win!
+
+
