@@ -152,5 +152,3 @@ Custom Memory: stress test: 246.061161 ms
 </pre>
 
 And then I go back to the compiler settings and realize - the values above ARE the default values.  I must have turned on whole program optimization when I turned it in the first time.  So before is at the bottom - and the after is up top.  I win!
-
-
