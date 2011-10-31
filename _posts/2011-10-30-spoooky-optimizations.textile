@@ -1,0 +1,36 @@
+---
+layout: post
+title: Spoooky Optimizations
+---
+h1. {{ page.title }}
+
+p(meta). 30 October 2011 - Lake Zurich, IL
+
+Just got the SIMD optimizations done, unfortunately, I don't seem to see 'optimization' for one of them.  The Vector * Matrix multiplication came out this way:
+
+<pre>
+--------- Vect4D ----------------
+  Vect4D Orig: 0.176137  
+  Vect4D_SIMD: 0.040577
+       Faster: 4.340783
+
+
+---------- Matrix ----------------
+  Matrix Orig: 1.105464
+  Matrix SIMD: 0.765734
+       Faster: 1.443666
+
+
+---------- Vect * Matrix ----------------
+  Vect*Matrix Orig: 0.740983
+  Vect*Matrix_SIMD: 1.517424
+            Faster: 0.488316
+</pre>
+
+The part that has me puzzled?  To do the Vect * Matrix I do a transpose on the matrix and then dot products, using my optimized code.  Those optimizations are in the Vect4D and Matrix code which is faster.  Spooooky.
+
+h2. Status
+
+Still a week behind, and tomorrow I won't be at class because I have a 1 year old and 3 year old, and you don't miss Halloween when they are that age.  
+
+
