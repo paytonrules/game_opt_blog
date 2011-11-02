@@ -6,7 +6,7 @@ h1. {{ page.title }}
 
 You don't miss Halloween when you've got a 1 year old and a 3 year old.
 
-!images/halloween.jpg!
+!/game_opt_blog/images/halloween.jpg!
 
 Fortunately I found the required part of load in place to be very easy and it's checked in.  Now to watch the latest lecture, which is unfortunately usually more difficult than attending class.  Ah the big project, should be fun.
 
