@@ -1,0 +1,11 @@
+---
+layout: post
+title: So, extra credit or not?
+---
+h1. {{ page.title }}
+
+This Tuesday morning I finished the required task for the in-place file system.  By my count this puts me at "caught-up," wheras before all my assignments were finished a week after the original due date.  Well most of them.  I got stuck in this state because I missed a class, and could not seem to catch up after the memory system.  Since I could the required part of the file system done I could move on to the final project easily provided I didn't do the extra credit.
+
+Except of course I missed class last Monday.  Since I won't be able to watch class until this weekend I'm pretty much obligated to go ahead and do the extra credit, at least some of it, so I'm not just twiddling my thumbs this week.  Ah well.  Being caught up isn't all it's cracked up to be.
+
+
