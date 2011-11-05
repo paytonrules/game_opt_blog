@@ -1,0 +1,11 @@
+---
+layout: post
+title: A neat article on Optimization
+---
+h1. {{ page.title }}
+
+A friend of mine tweeted this "article on optimization.":http://www.flounder.com/optimization.htm  There's a lot here that should be familiar to the students in this class.  I particlularly liked this story:
+
+bq. Another 5 hours, and I found that the programmer who wrote the constructor code for the data structure had a struct-equivalent something like {char * p1; char * p2;} where the pointers had been 16-bit, and we now used 32-bit pointers. In looking at the initialization code, instead of seeing something like something->p1 = NULL; something->p2= NULL;, I found the moral equivalent of (*(DWORD*)&something.p1) = 0! When I confronted the programmer, he justified it by explaining that he was now able to zero out two pointers with only a single doubleword store instruction (it wasn't an x86 computer, but a mainframe), and wasn't that a clever optimization? Of course, when the pointers became 32-bit pointers, this optimization only zeroed one of the two pointers, leaving the other either NULL (most of the time), or, occasionally, pointing into the heap in an eventually destructive manner. I pointed out that this optimization happened once, at object creation time; the average application that used our library created perhaps six of these objects, and that according to the CPU data of the day before I'd spent not only 17 hours of my time but 6 hours of CPU time, and that if we fixed the bug and ran the formerly-failing program continuously, starting it up instantly after it finished, for fourteen years, the time saved by his clever hack would just about break even with the CPU time required to find and fix this piece of gratuitous nonsense.
+
+Yes it's a big quote, but I liked it.  The article was well worth a read.
