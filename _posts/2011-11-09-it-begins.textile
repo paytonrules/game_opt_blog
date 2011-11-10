@@ -1,0 +1,15 @@
+---
+layout: post
+title: The Particle System
+---
+h1. {{ page.title }}
+
+So it begins - the final project, what this has all been building too.  I'm gonna use git to keep lots of tiny incremental changes, and then checking into perforce slightly less frequently.  This lets me checkin on the train as well.  Now to get started - what are my baseline numbers:
+
+<pre>
+LoopTime: update:235.459536 ms  draw:753.278971 ms  tot:988.738507
+</pre>
+
+I do everything on a VM.  Crud.  Looks like I'll need to install boot camp again.  Well let's try some of the low hanging fruit.  First - floats not doubles:
+
+And nothing looks right.  Looks like I got work to do tomorrow.
