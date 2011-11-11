@@ -1,0 +1,61 @@
+---
+layout: post
+title: Day Two
+---
+h1. {{ page.title }}
+
+Well yesterday I tried turning Vectors internal data structures into doubles, and watched the world blow up (nothing looked right).  So today I'm gonna start over and try to make matrices doubles.  Again here is a starting point number:
+
+<pre>
+LoopTime: update:235.459536 ms  draw:753.278971 ms  tot:988.738507
+</pre>
+
+Of course these are still VM numbers.  I'll get Boot Camp up and running this weekend.  Now by limiting the amount of doubles to floats I'm doing I'm hoping to keep changes into just the Matrix class and not end up with a completely screwed up display.  Let's see what happens.
+
+Time passes.
+
+And now everything is black.  No particles at all.  Fast though.  Now I'm gonna have to take even slower steps.  I'll start at the particle emitter and do this one data point at a time.  Boy I wish I had unit tests.
+
+I start by making the scale_variance float.  Just it - my numbers:
+
+<pre>
+LoopTime: update:39.157212 ms  draw:269.873112 ms  tot:309.030324
+</pre>
+
+Okay that is way too low for changing one double to a float.  Fortunately I'm using git for interim commits so I can commit this change, back up one and get new starting numbers.
+
+<pre>
+LoopTime: update:42.025171 ms  draw:236.922845 ms  tot:278.948016
+</pre>
+
+Okay that makes more sense.  There is a hiccup of 239ms but I suspect that's caused by my VM.  To continue onto the ParticleEmitter.....
+
+<pre>
+LoopTime: update:26.265629 ms  draw:211.263716 ms  tot:237.529345
+LoopTime: update:27.843762 ms  draw:197.378993 ms  tot:225.222755
+LoopTime: update:26.666796 ms  draw:237.567067 ms  tot:264.233863
+</pre>
+
+Oh I like that.  That's just getting Particle Emitter using floats instead of doubles.  Now to use floats for the internals, and do my best to align particle emitter: 
+
+Of course the particle emitter is using STL so alginment is more difficult.  Since I believe I'll be replacing those I've left that alone for the time being.
+
+Numbers now:
+
+<pre>
+LoopTime: update:29.015420 ms  draw:220.778614 ms  tot:249.794034
+LoopTime: update:27.149819 ms  draw:256.371677 ms  tot:283.521496
+LoopTime: update:28.101895 ms  draw:301.556468 ms  tot:329.658363
+</pre>
+
+So if anything I've lost time.  Well lets change the Particle object to use floats instead of doubles.  See if I get some improvement.
+
+<pre>
+LoopTime: update:32.235380 ms  draw:204.169795 ms  tot:236.405175
+LoopTime: update:27.916675 ms  draw:276.392668 ms  tot:304.309344
+LoopTime: update:26.254455 ms  draw:214.161009 ms  tot:240.415463
+</pre>
+
+Nuthin great - I did get a 21 though.  It looks like I can bite the bullet and go after Matrix again.  I see one problem - I made the matrix have floats but the OpenGL code was not updated respectively.  I suspect that's my problem.  Think that's all I'll write for now.  
+
+

@@ -12,4 +12,4 @@ LoopTime: update:235.459536 ms  draw:753.278971 ms  tot:988.738507
 
 I do everything on a VM.  Crud.  Looks like I'll need to install boot camp again.  Well let's try some of the low hanging fruit.  First - floats not doubles:
 
-And nothing looks right.  Looks like I got work to do tomorrow.
+And nothing looks right.  Looks like I got work to do tomorrow..... (Note this was actually written today 11/10 because it was time to put the little one to bed).
